@@ -1,25 +1,29 @@
 import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
-import {TodoDto} from './todo.dto';
+import {CreateTodoDto} from './dto/create-todo.dto';
 import {Todo, TodoService} from './todo.service';
 
-@Controller('todos')
+@Controller(
+  'todos'
+)
 export class TodoController {
-	constructor(private readonly todoService: TodoService) {
-	}
 
+  constructor(
+    private readonly todoService: TodoService
+  ) {
+  }
 
-	@Get()
-	public getAll() {
-		return this.todoService.getTodos();
-	}
+  @Get()
+  getAll() {
+    return this.todoService.getTodos();
+  }
 
-	@Post()
-	public create(@Body() createTodoDto: TodoDto): Todo {
-		return this.todoService.addTodo(createTodoDto);
-	}
+  @Post()
+  async create(@Body() createTodoDto: CreateTodoDto): Promise<Todo> {
+    return this.todoService.addTodo(createTodoDto);
+  }
 
-	@Delete(':id')
-	public remove(@Param('id') id: string): Todo {
-		return this.todoService.removeTodo(id);
-	}
+  @Delete(':id')
+  remove(@Param('id') id: string): Todo {
+    return this.todoService.removeTodo(id);
+  }
 }

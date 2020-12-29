@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Todo} from '../../state/todo/todo.model';
+import {TodoQuery} from '../../state/todo/todo.query';
 import {TodoService} from '../../state/todo/todo.service';
 
 @Component({
@@ -10,26 +11,31 @@ import {TodoService} from '../../state/todo/todo.service';
   styleUrls: ['./todo.component.css']
 })
 export class TodoComponent implements OnInit {
-  public readonly todos$: Observable<Todo[]>;
-  public readonly todoForm;
 
-  constructor(fb: FormBuilder, private readonly todoService: TodoService) {
-    this.todos$ = this.todoService.query.selectAll();
-    this.todoForm = fb.group({
-      name: ['']
-    });
+  todoForm: FormGroup;
+  todos$: Observable<Todo[]>;
+
+  constructor(
+    private fb: FormBuilder,
+    private readonly todoQuery: TodoQuery,
+    private readonly todoService: TodoService
+  ) {
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
+    this.todoForm = this.fb.group({
+      name: ['']
+    });
+    this.todos$ = this.todoQuery.selectAll();
     this.todoService.get().subscribe();
   }
 
-  public onSubmit() {
+  onSubmit(): void {
     this.todoService.add(this.todoForm.value).subscribe();
     this.todoForm.reset();
   }
 
-  public onDeleteClick(todo: Todo) {
+  onDeleteClick(todo: Todo): void {
     this.todoService.delete(todo.id).subscribe();
   }
 }

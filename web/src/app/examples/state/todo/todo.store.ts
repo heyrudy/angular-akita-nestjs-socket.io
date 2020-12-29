@@ -5,9 +5,14 @@ import {Todo} from './todo.model';
 export interface TodoState extends EntityState<Todo> {
 }
 
-@Injectable({providedIn: 'root'})
-@StoreConfig({name: 'todos'})
+@Injectable({
+  providedIn: 'root'
+})
+@StoreConfig({
+  name: 'todos'
+})
 export class TodoStore extends EntityStore<TodoState> {
+
   constructor() {
     super();
   }

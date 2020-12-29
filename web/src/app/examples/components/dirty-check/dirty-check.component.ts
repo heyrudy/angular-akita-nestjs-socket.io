@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AkitaNgFormsManager} from '@datorama/akita-ng-forms-manager';
 import {Payment} from '../../state/payment/payment.model';
 
@@ -13,23 +13,12 @@ export interface FormsState {
   styleUrls: ['./dirty-check.component.css']
 })
 export class DirtyCheckComponent implements OnInit, OnDestroy {
-  public paymentForm = this.fb.group({
-    contact: this.fb.group({
-      title: [''],
-      name: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['']
-    }),
-    creditCard: this.fb.group({
-      cardType: [''],
-      cardNumber: [''],
-      expirationDate: ['']
-    })
-  });
+
+  paymentForm: FormGroup;
 
   constructor(
     private readonly fb: FormBuilder,
-    private readonly formsManager: AkitaNgFormsManager<FormsState>,
+    private readonly formsManager: AkitaNgFormsManager<FormsState>
   ) {
   }
 
@@ -37,19 +26,39 @@ export class DirtyCheckComponent implements OnInit, OnDestroy {
     return this.paymentForm.get('contact');
   }
 
-  public ngOnInit(): void {
-    this.formsManager.upsert('payment', this.paymentForm, { persistForm: true });
+  get contactEmail() {
+    return this.paymentForm.get('contact').get('email');
   }
 
-  public ngOnDestroy(): void {
+  get contactName() {
+    return this.paymentForm.get('contact').get('name');
+  }
+
+  ngOnInit(): void {
+    this.paymentForm = this.fb.group({
+      contact: this.fb.group({
+        title: [''],
+        name: ['', Validators.required],
+        email: ['', Validators.required],
+        password: ['']
+      }),
+      creditCard: this.fb.group({
+        cardType: [''],
+        cardNumber: [''],
+        expirationDate: ['']
+      })
+    });
+    this.formsManager.upsert('payment', this.paymentForm, {persistForm: true});
+  }
+
+  ngOnDestroy(): void {
     this.formsManager.unsubscribe('payment');
   }
 
-  public onSubmit() {
+  onSubmit(): void {
     this.paymentForm.reset();
   }
 
-  public onResetClick() {
-
+  onResetClick(): void {
   }
 }

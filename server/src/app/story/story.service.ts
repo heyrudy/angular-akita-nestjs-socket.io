@@ -2,37 +2,38 @@ import {Injectable} from '@nestjs/common';
 import uuid from 'uuid';
 
 export class Story {
-	id?: string;
-	title: string;
-	story: string;
-	draft: boolean;
-	category: string[];
+  id?: string;
+  title: string;
+  story: string;
+  draft: boolean;
+  category: string[];
 }
 
 @Injectable()
 export class StoryService {
-	private data: Story[] = [];
 
-	constructor() {
-	}
+  private stories: Story[] = [];
 
-	public find(): Story[] {
-		return [...this.data];
-	}
+  constructor() {
+  }
 
-	public add(item: Story): Story {
-		item.id = uuid.v4();
-		this.data.push(item);
-		return item;
-	}
+  getStories(): Story[] {
+    return [...this.stories];
+  }
 
-	public remove(id: string): Story|null {
-		const idx = this.data.findIndex((td) => td.id === id);
+  addStory(story: Story): Story {
+    story.id = uuid.v4();
+    this.stories.push(story);
+    return story;
+  }
 
-		if (idx !== -1) {
-			return this.data.splice(idx, 1).pop();
-		}
+  removeStory(id: string): Story|null {
+    const index = this.stories.findIndex((td) => td.id === id);
 
-		return null;
-	}
+    if (index !== -1) {
+      return this.stories.splice(index, 1).pop();
+    }
+
+    return null;
+  }
 }

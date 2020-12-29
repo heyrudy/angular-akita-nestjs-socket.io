@@ -10,26 +10,30 @@ import {TodoService} from './examples/state/todo/todo.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  public readonly todos$: Observable<Todo[]>;
-  public readonly todoForm;
 
-  constructor(fb: FormBuilder, private readonly todoService: TodoService) {
+  readonly todos$: Observable<Todo[]>;
+  readonly todoForm;
+
+  constructor(
+    fb: FormBuilder,
+    private readonly todoService: TodoService
+  ) {
     this.todos$ = this.todoService.query.selectAll();
     this.todoForm = fb.group({
       name: ['']
     });
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
     this.todoService.get().subscribe();
   }
 
-  public onSubmit() {
+  onSubmit(): void {
     this.todoService.add(this.todoForm.value).subscribe();
     this.todoForm.reset();
   }
 
-  public onDeleteClick(todo: Todo) {
+  onDeleteClick(todo: Todo): void {
     this.todoService.delete(todo.id).subscribe();
   }
 }

@@ -35,4 +35,5 @@ const examplesRoutes: Routes = [
     RouterModule
   ]
 })
-export class ExamplesRouterModule {}
+export class ExamplesRouterModule {
+}

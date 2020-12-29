@@ -3,9 +3,9 @@ import {StoryController} from './story.controller';
 import {StoryService} from './story.service';
 
 @Module({
-	imports: [],
-	controllers: [StoryController],
-	providers: [StoryService]
+  imports: [],
+  controllers: [StoryController],
+  providers: [StoryService]
 })
 export class StoryModule {
 }

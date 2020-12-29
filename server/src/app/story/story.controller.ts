@@ -1,24 +1,29 @@
 import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
-import {StoryDto} from './story.dto';
+import {CreateStoryDto} from './dto/create-story.dto';
 import {Story, StoryService} from './story.service';
 
-@Controller('stories')
+@Controller(
+  'stories'
+)
 export class StoryController {
-	constructor(private readonly storyService: StoryService) {
-	}
 
-	@Get()
-	public getAll() {
-		return this.storyService.find();
-	}
+  constructor(
+    private readonly storyService: StoryService
+  ) {
+  }
 
-	@Post()
-	public create(@Body() createTodoDto: StoryDto): Story {
-		return this.storyService.add(createTodoDto);
-	}
+  @Get()
+  findAll() {
+    return this.storyService.getStories();
+  }
 
-	@Delete(':id')
-	public remove(@Param('id') id: string): Story {
-		return this.storyService.remove(id);
-	}
+  @Post()
+  create(@Body() createTodoDto: CreateStoryDto): Story {
+    return this.storyService.addStory(createTodoDto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string): Story {
+    return this.storyService.removeStory(id);
+  }
 }

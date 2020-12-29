@@ -4,14 +4,15 @@ import {Todo} from './todo.service';
 
 @WebSocketGateway()
 export class TodoGateway {
-	@WebSocketServer()
-	server: Server;
 
-	public onAddTodo(todo: Todo) {
-		this.server.emit('onAdd', {todo});
-	}
+  @WebSocketServer()
+  server: Server;
 
-	public onRemoveTodo(todo: Todo) {
-		this.server.emit('onRemove', {todo});
-	}
+  onAddTodo(todo: Todo) {
+    this.server.emit('onAdd', {todo});
+  }
+
+  onRemoveTodo(todo: Todo) {
+    this.server.emit('onRemove', {todo});
+  }
 }

@@ -19,5 +19,4 @@ import {ExamplesRouterModule} from './examples-router.module';
   ]
 })
 export class ExamplesModule {
-
 }

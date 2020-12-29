@@ -17,7 +17,8 @@
     "import-spacing": true,
     "indent": [
       true,
-      "tabs"
+      "spaces",
+      2
     ],
     "interface-over-type-literal": true,
     "interface-name": false,
@@ -110,7 +111,8 @@
       "check-operator",
       "check-separator",
       "check-type"
-    ]
+    ],
+    "max-classes-per-file": false
   },
   "rulesDirectory": []
 }

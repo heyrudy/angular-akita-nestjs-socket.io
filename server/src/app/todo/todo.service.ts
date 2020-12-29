@@ -3,38 +3,40 @@ import uuid from 'uuid';
 import {TodoGateway} from './todo.gateway';
 
 export class Todo {
-	id: string;
-	name: string;
+  id: string;
+  name: string;
 }
 
 @Injectable()
 export class TodoService {
-	private todos: Todo[] = [];
 
-	constructor(private readonly todoGateway: TodoGateway) {
+  private todos: Todo[] = [];
 
-	}
+  constructor(
+    private readonly todoGateway: TodoGateway
+  ) {
+  }
 
-	public getTodos(): Todo[] {
-		return [...this.todos];
-	}
+  getTodos(): Todo[] {
+    return [...this.todos];
+  }
 
-	public addTodo(todo: Partial<Todo>): Todo {
-		const newTodo = {id: uuid.v4(), name: todo.name};
-		this.todos.push(newTodo);
-		this.todoGateway.onAddTodo(newTodo);
-		return newTodo;
-	}
+  addTodo(todo: Partial<Todo>): Todo {
+    const newTodo = {id: uuid.v4(), name: todo.name};
+    this.todos.push(newTodo);
+    this.todoGateway.onAddTodo(newTodo);
+    return newTodo;
+  }
 
-	public removeTodo(id: string): Todo|null {
-		const idx = this.todos.findIndex((td) => td.id === id);
+  removeTodo(id: string): Todo|null {
+    const index = this.todos.findIndex((todo) => todo.id === id);
 
-		if (idx !== -1) {
-			const todo = this.todos.splice(idx, 1).pop();
-			this.todoGateway.onRemoveTodo(todo);
-			return todo;
-		}
+    if (index !== -1) {
+      const todo = this.todos.splice(index, 1).pop();
+      this.todoGateway.onRemoveTodo(todo);
+      return todo;
+    }
 
-		return null;
-	}
+    return null;
+  }
 }

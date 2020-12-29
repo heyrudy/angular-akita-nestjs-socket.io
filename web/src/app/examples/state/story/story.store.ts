@@ -5,9 +5,14 @@ import {Story} from './story.model';
 export interface StoryState extends EntityState<Story> {
 }
 
-@Injectable({providedIn: 'root'})
-@StoreConfig({name: 'stories'})
+@Injectable({
+  providedIn: 'root'
+})
+@StoreConfig({
+  name: 'stories'
+})
 export class StoryStore extends EntityStore<StoryState> {
+
   constructor() {
     super();
   }

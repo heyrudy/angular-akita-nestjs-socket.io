@@ -5,9 +5,9 @@ import {StoryModule} from './story/story.module';
 import {TodoModule} from './todo/todo.module';
 
 @Module({
-	imports: [TodoModule, StoryModule],
-	controllers: [AppController],
-	providers: [AppService]
+  imports: [TodoModule, StoryModule],
+  controllers: [AppController],
+  providers: [AppService]
 })
 export class AppModule {
 }

@@ -1,7 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormArray, FormBuilder} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {PersistNgFormPlugin} from '@datorama/akita';
 import {createStory} from '../../state/story/story.model';
+import {StoryQuery} from '../../state/story/story.query';
 import {StoryService} from '../../state/story/story.service';
 
 @Component({
@@ -10,19 +11,15 @@ import {StoryService} from '../../state/story/story.service';
   styleUrls: ['./story-form.component.css']
 })
 export class StoryFormComponent implements OnInit, OnDestroy {
-  public readonly LANGUAGES = ['JS', 'PHP', 'HTML', 'CSS'];
-  public storyForm = this.fb.group({
-    title: [''],
-    story: [''],
-    draft: [''],
-    category: this.fb.array([])
-  });
 
+  storyForm: FormGroup;
   private persistForm: PersistNgFormPlugin;
+  private readonly LANGUAGES = ['JS', 'PHP', 'HTML', 'CSS'];
 
   constructor(
-    private storyService: StoryService,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    private readonly storyQuery: StoryQuery,
+    private readonly storyService: StoryService
   ) {
   }
 
@@ -42,27 +39,37 @@ export class StoryFormComponent implements OnInit, OnDestroy {
     return this.storyForm.get('category') as FormArray;
   }
 
-  public ngOnInit(): void {
+  ngOnInit(): void {
+    this.storyForm = this.fb.group({
+      title: [''],
+      story: [''],
+      draft: [''],
+      category: this.fb.array([])
+    });
     this.addCheckboxes(this.LANGUAGES);
-    this.persistForm = new PersistNgFormPlugin(this.storyService.query, createStory, {
-      debounceTime: 300,
-      formKey: 'storyForm'
-    })
-      .setForm(this.storyForm, this.fb);
+    this.persistForm = new PersistNgFormPlugin(
+      this.storyQuery,
+      createStory,
+      {
+        debounceTime: 300,
+        formKey: 'storyForm'
+      }
+    ).setForm(this.storyForm, this.fb);
   }
 
-  public ngOnDestroy(): void {
+  ngOnDestroy(): void {
     this.persistForm.destroy();
   }
 
-  public onSubmit() {
+  onSubmit(): void {
     if (this.storyForm.valid) {
-      this.storyService.add(this.storyForm.value)
+      this.storyService
+        .add(this.storyForm.value)
         .subscribe(() => this.persistForm.reset());
     }
   }
 
-  public onResetClick() {
+  onResetClick(): void {
     this.persistForm.reset();
   }
 
@@ -76,5 +83,4 @@ export class StoryFormComponent implements OnInit, OnDestroy {
       );
     });
   }
-
 }
