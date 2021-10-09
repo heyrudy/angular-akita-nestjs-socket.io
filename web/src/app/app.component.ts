@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {Todo} from './examples/state/todo/todo.model';
+import {TodoQuery} from './examples/state/todo/todo.query';
 import {TodoService} from './examples/state/todo/todo.service';
 
 @Component({
@@ -16,9 +17,10 @@ export class AppComponent implements OnInit {
 
   constructor(
     fb: FormBuilder,
-    private readonly todoService: TodoService
+    private readonly todoService: TodoService,
+    private readonly todoQuery: TodoQuery
   ) {
-    this.todos$ = this.todoService.query.selectAll();
+    this.todos$ = this.todoQuery.selectAll();
     this.todoForm = fb.group({
       name: ['']
     });
