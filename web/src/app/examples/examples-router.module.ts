@@ -1,8 +1,7 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
-import {ExampleComponent} from './example.component';
-import {DirtyCheckComponent, StoryFormComponent, TodoComponent} from './components';
-
+import { NgModule } from '@angular/core'
+import { RouterModule, Routes } from '@angular/router'
+import { ExampleComponent } from './example.component'
+import { DirtyCheckComponent, StoryFormComponent, TodoComponent } from './components'
 
 const examplesRoutes: Routes = [
   {
@@ -11,29 +10,29 @@ const examplesRoutes: Routes = [
     children: [
       {
         path: 'todos',
-        component: TodoComponent
+        component: TodoComponent,
       },
       {
         path: 'dirty-check',
-        component: DirtyCheckComponent
+        component: DirtyCheckComponent,
       },
       {
         path: 'persist-form',
-        component: StoryFormComponent
-      }
-    ]
+        component: StoryFormComponent,
+      },
+    ],
   },
-];
+]
 
 @NgModule({
   imports: [
     RouterModule.forChild(
-      examplesRoutes
-    )
+      examplesRoutes,
+    ),
   ],
   exports: [
-    RouterModule
-  ]
+    RouterModule,
+  ],
 })
 export class ExamplesRouterModule {
 }

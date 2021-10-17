@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import uuid from 'uuid';
 import {TodoGateway} from './todo.gateway';
 
@@ -6,6 +6,8 @@ export class Todo {
   id: string;
   name: string;
 }
+
+type NullableTodo = Todo | null;
 
 @Injectable()
 export class TodoService {
@@ -28,8 +30,8 @@ export class TodoService {
     return newTodo;
   }
 
-  removeTodo(id: string): Todo|null {
-    const index = this.todos.findIndex((todo) => todo.id === id);
+  removeTodo(id: string): NullableTodo {
+    const index = this.todos.findIndex((todo: Todo) => todo.id === id);
 
     if (index !== -1) {
       const todo = this.todos.splice(index, 1).pop();

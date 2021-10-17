@@ -11,6 +11,6 @@ export function createStory(): Story {
     title: '',
     story: '',
     draft: true,
-    category: ['']
-  };
+    category: [''],
+  }
 }

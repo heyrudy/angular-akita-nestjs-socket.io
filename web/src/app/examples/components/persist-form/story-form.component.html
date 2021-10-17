@@ -2,69 +2,74 @@
 
   <h1>Persist Form</h1>
   <form
-    [formGroup]="storyForm"
-    (ngSubmit)="onSubmit()">
+    [formGroup]='storyForm'
+    (ngSubmit)='onSubmit()'
+  >
     <fieldset>
       <legend>Story</legend>
       <p>
-        <label for="title">
+        <label for='title'>
           <span>Title: </span>
-          <strong><abbr title="required">*</abbr></strong>
+          <strong><abbr title='required'>*</abbr></strong>
         </label>
         <input
-          type="text"
-          id="title"
-          name="title"
-          formControlName="title"
-          required/>
-        <span *ngIf="title.touched && title.errors?.required">Field is required</span>
+          type='text'
+          id='title'
+          name='title'
+          formControlName='title'
+          required
+        />
+        <span *ngIf='title.touched && title.errors?.required'>Field is required</span>
       </p>
       <p>
-        <label for="story">
+        <label for='story'>
           <span>Story: </span>
-          <strong><abbr title="required">*</abbr></strong>
+          <strong><abbr title='required'>*</abbr></strong>
         </label>
         <textarea
-          id="story"
-          name="story"
-          formControlName="story"
-          required>
-        </textarea>
-        <span *ngIf="story.touched && story.errors?.required">Field is required</span>
+          id='story'
+          name='story'
+          formControlName='story'
+          required
+        ></textarea>
+        <span *ngIf='story.touched && story.errors?.required'>Field is required</span>
       </p>
       <p>
-        <label for="draft">
+        <label for='draft'>
           <span>Draft: </span>
         </label>
         <input
-          type="checkbox"
-          id="draft"
-          name="draft"
-          formControlName="draft"/>
+          type='checkbox'
+          id='draft'
+          name='draft'
+          formControlName='draft'
+        />
       </p>
-      <p formArrayName="category">
+      <p formArrayName='category'>
         <label>
           <span>Category: </span>
         </label>
-        <label *ngFor="let control of category.controls; index as i">
-          <ng-container [formGroupName]="i.toString()">
+        <label *ngFor='let control of category.controls; index as i'>
+          <ng-container [formGroupName]='i.toString()'>
             <input
-              type="checkbox"
-              formControlName="isChecked"/>
+              type='checkbox'
+              formControlName='isChecked'
+            />
             {{control.value.name}}
           </ng-container>
         </label>
-        <span *ngIf="category.touched && category.errors?.required">Field is required</span>
+        <span *ngIf='category.touched && category.errors?.required'>Field is required</span>
       </p>
     </fieldset>
 
     <p>
-      <button type="submit">Save the story</button>
+      <button type='submit'>Save the story</button>
     </p>
     <p>
       <button
-        type="button"
-        (click)="onResetClick()">
+        type='button'
+        (click)='onResetClick()'
+      >
         Reset
       </button>
     </p>

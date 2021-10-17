@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-examples',
@@ -37,7 +37,7 @@ import {Component} from '@angular/core';
       </ul>
       <router-outlet></router-outlet>
     </section>
-  `
+  `,
 })
 export class ExampleComponent {
 }

@@ -23,7 +23,7 @@ export function createPayment() {
     creditCard: {
       cardType: '',
       cardNumber: '',
-      expirationDate: ''
-    }
-  };
+      expirationDate: '',
+    },
+  }
 }

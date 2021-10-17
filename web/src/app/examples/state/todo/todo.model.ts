@@ -5,6 +5,6 @@ export interface Todo {
 
 export function createTodo(): Todo {
   return {
-    name: ''
-  };
+    name: '',
+  }
 }

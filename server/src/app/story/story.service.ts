@@ -14,9 +14,6 @@ export class StoryService {
 
   private stories: Story[] = [];
 
-  constructor() {
-  }
-
   getStories(): Story[] {
     return [...this.stories];
   }
@@ -27,7 +24,7 @@ export class StoryService {
     return story;
   }
 
-  removeStory(id: string): Story|null {
+  removeStory(id: string): Story | null {
     const index = this.stories.findIndex((td) => td.id === id);
 
     if (index !== -1) {

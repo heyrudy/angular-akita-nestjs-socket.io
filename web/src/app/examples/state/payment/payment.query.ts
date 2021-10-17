@@ -1,15 +1,15 @@
-import {Injectable} from '@angular/core';
-import {QueryEntity} from '@datorama/akita';
-import {PaymentState, PaymentStore} from './payment.store';
+import { Injectable } from '@angular/core'
+import { QueryEntity } from '@datorama/akita'
+import { PaymentState, PaymentStore } from './payment.store'
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PaymentQuery extends QueryEntity<PaymentState> {
 
   constructor(
-    protected store: PaymentStore
+    protected store: PaymentStore,
   ) {
-    super(store);
+    super(store)
   }
 }
